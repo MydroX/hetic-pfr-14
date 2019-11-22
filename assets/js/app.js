@@ -12,3 +12,18 @@ require('../css/app.css');
 // const $ = require('jquery');
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+            <p>Hello</p>
+            </div>
+    )
+    }
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
