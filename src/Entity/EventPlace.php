@@ -89,37 +89,6 @@ class EventPlace
         return $this;
     }
 
-    /**
-     * @return Collection|Sport[]
-     */
-    public function getSports(): Collection
-    {
-        return $this->sports;
-    }
-
-    public function addSport(Sport $sport): self
-    {
-        if (!$this->sports->contains($sport)) {
-            $this->sports[] = $sport;
-            $sport->setPlace($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSport(Sport $sport): self
-    {
-        if ($this->sports->contains($sport)) {
-            $this->sports->removeElement($sport);
-            // set the owning side to null (unless already changed)
-            if ($sport->getPlace() === $this) {
-                $sport->setPlace(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getGeoPoint(): ?string
     {
         return $this->geo_point;
