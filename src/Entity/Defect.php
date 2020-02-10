@@ -27,7 +27,7 @@ class Defect
     private $SubType;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $ReportingDate;
 
