@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "@babel/preset-react": "^7.6.3",
+        "@babel/preset-react": "^7.7.0",
         "@symfony/webpack-encore": "^0.28.0",
         "core-js": "^3.0.0",
         "node-sass": "^4.12.0",
@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "prop-types": "^15.7.2",
-        "react": "^16.10.2",
-        "react-dom": "^16.10.2"
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
     }
 }
