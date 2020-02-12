@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -37,7 +38,7 @@ class DefectController extends AbstractController
         $defects = $defectsRepository->get200LastDefects();
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
         $jsonContent = $serializer->serialize($defects, 'json', [
