@@ -47,6 +47,6 @@ class DefectController extends AbstractController
             }
         ]);
 
-        return new Response($jsonContent, 200, ['Content-Type' => 'application/json']);
+        return new Response($jsonContent, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
     }
 }
