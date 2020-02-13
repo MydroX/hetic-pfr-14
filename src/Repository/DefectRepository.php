@@ -19,10 +19,10 @@ class DefectRepository extends ServiceEntityRepository
         parent::__construct($registry, Defect::class);
     }
 
-    public function get200LastDefects() {
+    public function getLastDefects() {
         $qb = $this->createQueryBuilder("d")
             ->orderBy("d.ReportingDate", "DESC")
-            ->setMaxResults(200);
+            ->setMaxResults(326);
 
         $query = $qb->getQuery();
         return $query->execute();
