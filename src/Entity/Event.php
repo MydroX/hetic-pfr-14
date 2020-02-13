@@ -52,6 +52,11 @@ class Event
      */
     private $endTime;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $dateId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Event
     public function setEndTime(\DateTimeInterface $endTime): self
     {
         $this->endTime = $endTime;
+
+        return $this;
+    }
+
+    public function getDateId(): ?int
+    {
+        return $this->dateId;
+    }
+
+    public function setDateId(int $dateId): self
+    {
+        $this->dateId = $dateId;
 
         return $this;
     }
