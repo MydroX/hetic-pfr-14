@@ -22,7 +22,7 @@ class Event
     private $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $date;
 
@@ -35,12 +35,22 @@ class Event
     /**
      * @ORM\Column(type="time")
      */
-    private $time;
+    private $startTime;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $endTime;
 
     public function getId(): ?int
     {
@@ -83,14 +93,14 @@ class Event
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->time;
+        return $this->startTime;
     }
 
-    public function setTime(\DateTimeInterface $time): self
+    public function setStartTime(\DateTimeInterface $startTime): self
     {
-        $this->time = $time;
+        $this->startTime = $startTime;
 
         return $this;
     }
@@ -103,6 +113,30 @@ class Event
     public function setGender(?string $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->endTime;
+    }
+
+    public function setEndTime(\DateTimeInterface $endTime): self
+    {
+        $this->endTime = $endTime;
 
         return $this;
     }
