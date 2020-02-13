@@ -26,9 +26,7 @@ class DefectController extends AbstractController
      *     @SWG\Response(
      *          response="200",
      *          description="Success",
-     *          @SWG\Schema(
-     *              @SWG\Items(ref=@Model(type=Defect::class, groups={"full"}))
-     *          )
+     *          @Model(type=Defect::class)
      *     )
      * )
      */
