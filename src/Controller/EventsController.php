@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +23,18 @@ class EventsController extends AbstractController
 
     /**
      * @Route(name="eventsById", path="api/events/{id}", methods={"GET"})
+     * @SWG\Get(
+     *     path="/api/events/{id}",
+     *     summary="Get events by date id",
+     *     operationId="getEventsByDateId",
+     *     produces={"application/json"},
+     *     description="Returns every events for the given date id",
+     *     @SWG\Response(
+     *          response="200",
+     *          description="Success",
+     *          @Model(type=Event::class)
+     *     )
+     * )
      */
     public function getEventsByDateId(Request $request) {
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
