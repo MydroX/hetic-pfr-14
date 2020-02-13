@@ -22,20 +22,18 @@ class DefectController extends AbstractController
      *     summary="Get defects",
      *     operationId="getDefects",
      *     produces={"application/json"},
-     *     description="Returns the 200 last defects",
+     *     description="Returns the last defects",
      *     @SWG\Response(
      *          response="200",
      *          description="Success",
-     *          @SWG\Schema(
-     *              @SWG\Items(ref=@Model(type=Defect::class, groups={"full"}))
-     *          )
+     *          @Model(type=Defect::class)
      *     )
      * )
      */
-    public function index()
+    public function getLastDefects()
     {
         $defectsRepository = $this->getDoctrine()->getRepository(Defect::class);
-        $defects = $defectsRepository->get200LastDefects();
+        $defects = $defectsRepository->getLastDefects();
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];

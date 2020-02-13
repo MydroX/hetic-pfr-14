@@ -85,24 +85,6 @@ class Sport
         return $this;
     }
 
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setSport($this);
-        }
-
-        return $this;
-    }
-
     public function removeEvent(Event $event): self
     {
         if ($this->events->contains($event)) {
