@@ -17,8 +17,23 @@ use Symfony\Component\Serializer\Serializer;
 
 class EventsController extends AbstractController
 {
+    /**
+     * @Route(name="events", path="api/events", methods={"GET"})
+     */
     public function getEvents() {
+        $eventRepo = $this->getDoctrine()->getRepository(Event::class);
+        $events = $eventRepo->findAll();
 
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $jsonObject = $serializer->serialize($events, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
     }
 
     /**
