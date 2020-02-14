@@ -19,6 +19,18 @@ class EventsController extends AbstractController
 {
     /**
      * @Route(name="events", path="api/events", methods={"GET"})
+     * @SWG\Get(
+     *     path="/api/events",
+     *     summary="Get all events",
+     *     operationId="getEvents",
+     *     produces={"application/json"},
+     *     description="Returns all events",
+     *     @SWG\Response(
+     *          response="200",
+     *          description="Success",
+     *          @Model(type=Event::class)
+     *     )
+     * )
      */
     public function getEvents() {
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
@@ -37,9 +49,9 @@ class EventsController extends AbstractController
     }
 
     /**
-     * @Route(name="eventsById", path="api/events/{id}", methods={"GET"})
+     * @Route(name="eventsById", path="api/events/{date_id}", methods={"GET"})
      * @SWG\Get(
-     *     path="/api/events/{id}",
+     *     path="/api/events/{date_id}",
      *     summary="Get events by date id",
      *     operationId="getEventsByDateId",
      *     produces={"application/json"},
@@ -53,7 +65,7 @@ class EventsController extends AbstractController
      */
     public function getEventsByDateId(Request $request) {
         $eventRepo = $this->getDoctrine()->getRepository(Event::class);
-        $events = $eventRepo->findBy(["dateId" => $request->get("id")]);
+        $events = $eventRepo->findBy(["dateId" => $request->get("date_id")]);
 
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
