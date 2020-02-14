@@ -43,6 +43,11 @@ class EventPlace
      */
     private $geo_point;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
     public function __construct()
     {
         $this->sports = new ArrayCollection();
@@ -97,6 +102,18 @@ class EventPlace
     public function setGeoPoint(string $geo_point): self
     {
         $this->geo_point = $geo_point;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
