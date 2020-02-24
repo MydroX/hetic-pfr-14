@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,7 +34,6 @@ class EventPlace
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sport", mappedBy="place")
-     * @Serializer\Exclude()
      */
     private $sports;
 
