@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SportRepository")
@@ -24,11 +25,6 @@ class Sport
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picto_path;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\EventPlace", inversedBy="sports")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -36,6 +32,7 @@ class Sport
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="sport", orphanRemoval=true)
+     * @Serializer\Exclude( )
      */
     private $events;
 
@@ -57,18 +54,6 @@ class Sport
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPictoPath(): ?string
-    {
-        return $this->picto_path;
-    }
-
-    public function setPictoPath(?string $picto_path): self
-    {
-        $this->picto_path = $picto_path;
 
         return $this;
     }
