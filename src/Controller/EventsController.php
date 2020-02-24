@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Entity\Sport;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -15,7 +13,6 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use JMS\Serializer as SerializerJMS;
 
 class EventsController extends AbstractController
 {
@@ -34,16 +31,20 @@ class EventsController extends AbstractController
      *     )
      * )
      */
-    public function getEvents() {
+    public function getEvents()
+    {
         $eventRepository = $this->getDoctrine()->getRepository(Event::class);
         $events = $eventRepository->findAll();
-        $sportRepository = $this->getDoctrine()->getRepository(Sport::class);
-        $sports = $sportRepository->findAll();
 
-        $serializer = SerializerJMS\SerializerBuilder::create()->build();
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
 
-        $data = ["events" => $events, "sports" => $sports];
-        $jsonContent = $serializer->serialize($data, 'json');
+        $jsonContent = $serializer->serialize($events, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
 
         return new Response($jsonContent, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
     }
