@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +35,7 @@ class EventPlace
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sport", mappedBy="place")
+     * @Serializer\Exclude()
      */
     private $sports;
 
@@ -47,6 +48,11 @@ class EventPlace
      * @ORM\Column(type="string", length=255)
      */
     private $city;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $district;
 
     public function __construct()
     {
@@ -114,6 +120,18 @@ class EventPlace
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?int
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(?int $district): self
+    {
+        $this->district = $district;
 
         return $this;
     }

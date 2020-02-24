@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -29,6 +32,7 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Sport", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Serializer\Exclude()
      */
     private $sport;
 
@@ -89,6 +93,15 @@ class Event
     public function getSport(): ?Sport
     {
         return $this->sport;
+    }
+
+    /**
+     * @VirtualProperty
+     * @SerializedName("sportId")
+     */
+    public function getSportId(): int
+    {
+        return $this->sport->getId();
     }
 
     public function setSport(?Sport $sport): self

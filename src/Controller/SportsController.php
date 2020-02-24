@@ -67,8 +67,8 @@ class SportsController extends AbstractController
      * )
      */
     public function getSportById(Request $request) {
-        $sportPlaceRepo = $this->getDoctrine()->getRepository(Sport::class);
-        $sport = $sportPlaceRepo->findOneBy(["id" => $request->get("id")]);
+        $sportRepository = $this->getDoctrine()->getRepository(Sport::class);
+        $sport = $sportRepository->findOneBy(["id" => $request->get("id")]);
 
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
