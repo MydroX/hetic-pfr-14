@@ -49,6 +49,11 @@ class EventPlace
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $district;
+
     public function __construct()
     {
         $this->sports = new ArrayCollection();
@@ -115,6 +120,18 @@ class EventPlace
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?int
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(?int $district): self
+    {
+        $this->district = $district;
 
         return $this;
     }
