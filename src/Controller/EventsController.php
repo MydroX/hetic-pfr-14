@@ -45,7 +45,7 @@ class EventsController extends AbstractController
         $data = ["events" => $events, "sports" => $sports];
         $jsonContent = $serializer->serialize($data, 'json');
 
-        return new Response($jsonContent, 200, ['Content-Type' => 'application/json']);
+        return new Response($jsonContent, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
     }
 
     /**
