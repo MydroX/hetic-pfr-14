@@ -68,7 +68,7 @@ class DefectController extends AbstractController
         $defects = $defectsRepository->findLast3DefectsByZipcode($zipcode);
 
         $encoders = [new JsonEncoder()];
-        $normalizers = [new DateTimeNormalizer()];
+        $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
         $jsonContent = $serializer->serialize($defects, 'json', [
