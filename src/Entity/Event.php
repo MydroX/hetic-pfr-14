@@ -91,11 +91,6 @@ class Event
         return $this->sport;
     }
 
-    public function getSportId(): int
-    {
-        return $this->sport->getId();
-    }
-
     public function setSport(?Sport $sport): self
     {
         $this->sport = $sport;

@@ -28,32 +28,21 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Event
+    public function findCountForEveryDate($district)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT COUNT(`event`.`id`) AS `events` , `event`.`date_id` 
+                FROM `event_place` 
+                LEFT JOIN `sport` ON `event_place`.`id` = `sport`.`place_id`
+                LEFT JOIN `event` ON `sport`.`id` = `event`.`sport_id`
+                WHERE `event_place`.`district` = :district
+                GROUP BY `event`.`date_id`";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['district' => $district]);
+
+        return $stmt->fetchAll();
     }
-    */
 }
