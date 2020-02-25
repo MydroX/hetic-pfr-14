@@ -52,7 +52,24 @@ class DefectController extends AbstractController
     /**
      * @param Request $request
      *
-     * @Route(name="getDefectsByZipcode", path="api/defects/zipcode/{district_id}")
+     * @Route(name="getDefectsByZipcode", path="api/defects/zipcode/{district_id}", methods={"GET"})
+     * @SWG\Get(
+     *     path="/api/defects/zipcode/{district_id}",
+     *     summary="Get the last 3 defects for a district",
+     *     operationId="getDefectsByZipcode",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="district_id",
+     *          in="path",
+     *          type="integer",
+     *          description="Number of a Paris's district. Example : 1, 2, 3, ..."
+     *      ),
+     *     @SWG\Response(
+     *          response="200",
+     *          description="Success",
+     *          @Model(type=Defect::class)
+     *     )
+     * )
      *
      * @return Response
      */

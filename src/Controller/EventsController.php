@@ -59,6 +59,12 @@ class EventsController extends AbstractController
      *     operationId="getEventsByDateId",
      *     produces={"application/json"},
      *     description="Returns every events for the given date id",
+     *     @SWG\Parameter(
+     *          name="date_id",
+     *          in="path",
+     *          type="integer",
+     *          description="This need a date id. It can take the value between 1 and 11, and 26 and 31"
+     *     ),
      *     @SWG\Response(
      *          response="200",
      *          description="Success",
@@ -86,7 +92,22 @@ class EventsController extends AbstractController
      * @param Request $request
      *
      * @Route(name="CountEventsByDistrict", path="api/events/count/district/{district_id}", methods={"GET"})
-     * @todo doc swagger
+     * @SWG\Get(
+     *     path="/api/events/count/district/{district_id}",
+     *     summary="Get number of events for a district",
+     *     operationId="getCountEventsByDistrict",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="district_id",
+     *          in="path",
+     *          type="integer",
+     *          description="Number of a Paris's district. Example : 1, 2, 3, ..."
+     *     ),
+     *     @SWG\Response(
+     *          response="200",
+     *          description="Success"
+     *     )
+     * )
      *
      * @return Response
      */

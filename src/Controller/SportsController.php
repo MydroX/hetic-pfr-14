@@ -47,26 +47,26 @@ class SportsController extends AbstractController
         return new Response($jsonObject, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
     }
 
-    /**
-     * @Route(
-     *     name="sportById",
-     *     path="api/sport/{id}",
-     *     methods={"GET"}
-     * )
-     * @SWG\Get(
-     *     path="/api/sport/{id}",
-     *     summary="Get one sport",
-     *     operationId="getSportById",
-     *     produces={"application/json"},
-     *     description="Returns sport by id",
-     *     @SWG\Response(
-     *          response="200",
-     *          description="Success",
-                @Model(type=Sport::class)
-     *     )
-     * )
-     */
-    public function getSportById(Request $request) {
+//    /**
+//     * @Route(
+//     *     name="sportById",
+//     *     path="api/sport/{id}",
+//     *     methods={"GET"}
+//     * )
+//     * @SWG\Get(
+//     *     path="/api/sport/{id}",
+//     *     summary="Get one sport",
+//     *     operationId="getSportById",
+//     *     produces={"application/json"},
+//     *     description="Returns sport by id",
+//     *     @SWG\Response(
+//     *          response="200",
+//     *          description="Success",
+//                @Model(type=Sport::class)
+//     *     )
+//     * )
+//     */
+/*    public function getSportById(Request $request) {
         $sportRepository = $this->getDoctrine()->getRepository(Sport::class);
         $sport = $sportRepository->findOneBy(["id" => $request->get("id")]);
 
@@ -80,5 +80,5 @@ class SportsController extends AbstractController
             }
         ]);
         return new Response($jsonObject, 200, ['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']);
-    }
+    }*/
 }
