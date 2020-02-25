@@ -67,8 +67,6 @@ class DefectController extends AbstractController
         $defectsRepository = $this->getDoctrine()->getRepository(Defect::class);
         $defects = $defectsRepository->findLast3DefectsByZipcode($zipcode);
 
-        dd($defects);
-
         $encoders = [new JsonEncoder()];
         $normalizers = [new DateTimeNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
