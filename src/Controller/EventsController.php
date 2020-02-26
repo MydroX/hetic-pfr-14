@@ -91,18 +91,12 @@ class EventsController extends AbstractController
     /**
      * @param Request $request
      *
-     * @Route(name="CountEventsByDistrict", path="api/events/count/district/{district_id}", methods={"GET"})
+     * @Route(name="CountEventsByDistrict", path="api/events/count/district", methods={"GET"})
      * @SWG\Get(
-     *     path="/api/events/count/district/{district_id}",
+     *     path="/api/events/count/district/",
      *     summary="Get number of events for a district",
      *     operationId="getCountEventsByDistrict",
      *     produces={"application/json"},
-     *     @SWG\Parameter(
-     *          name="district_id",
-     *          in="path",
-     *          type="integer",
-     *          description="Number of a Paris's district. Example : 1, 2, 3, ..."
-     *     ),
      *     @SWG\Response(
      *          response="200",
      *          description="Success"
@@ -111,14 +105,20 @@ class EventsController extends AbstractController
      *
      * @return Response
      */
-    public function getCountEventsByDistrict(Request $request) {
-        $district = $request->get("district_id");
-        $districtFrontId = "d".$district;
-
+    public function getCountEventsByDistrict(Request $request)
+    {
         $eventPlaceRepository = $this->getDoctrine()->getRepository(Event::class);
-        $events = $eventPlaceRepository->findCountForEveryDate($district);
 
-        $data = ["district" => $districtFrontId, "days" => $events];
+        $numberOfDistricts = 19;
+        $data = array();
+
+        for ($i=1 ; $i < $numberOfDistricts ; $i++) {
+            $events = $eventPlaceRepository->findCountForEveryDate($i);
+            $districtFrontId = "d".$i;
+
+            $districtData = ["district" => $districtFrontId, "days" => $events];
+            array_push($data, $districtData);
+        }
 
         $encoders = [new JsonEncoder()];
         $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
