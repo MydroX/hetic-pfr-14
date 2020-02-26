@@ -109,10 +109,10 @@ class EventsController extends AbstractController
     {
         $eventPlaceRepository = $this->getDoctrine()->getRepository(Event::class);
 
-        $numberOfDistricts = 19;
+        $numberOfDistricts = 20;
         $data = array();
 
-        for ($i=1 ; $i < $numberOfDistricts ; $i++) {
+        for ($i=1 ; $i <= $numberOfDistricts ; $i++) {
             $events = $eventPlaceRepository->findCountForEveryDate($i);
             $districtFrontId = "d".$i;
 
