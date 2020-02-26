@@ -112,9 +112,23 @@ class EventsController extends AbstractController
         $numberOfDistricts = 20;
         $data = array();
 
+        $olympicsDuration = 16;
+        $day = 26;
+
+        $defaultEvent = array();
+        for ($i=0 ; $i <= $olympicsDuration ; $i++) {
+            if ($day == 32) {
+                $day = 1;
+            }
+            $defaultEvent[$i] = ["events" => "0", "date_id" => "".$day];
+            $day++;
+        }
+
         for ($i=1 ; $i <= $numberOfDistricts ; $i++) {
             $events = $eventPlaceRepository->findCountForEveryDate($i);
             $districtFrontId = "d".$i;
+
+            $events = array_replace($defaultEvent, $events);
 
             $districtData = ["district" => $districtFrontId, "days" => $events];
             array_push($data, $districtData);

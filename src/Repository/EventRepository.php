@@ -19,13 +19,14 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findEventsByDateId($dateId) {
+    public function findEventsByDateId($dateId)
+    {
         return $this->createQueryBuilder('e')
             ->where('e.dateId = :dateId')
+            ->andWhere('e.sportId = :sportId')
             ->setParameter('dateId', $dateId)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
@@ -37,7 +38,7 @@ class EventRepository extends ServiceEntityRepository
                 FROM `event_place` 
                 LEFT JOIN `sport` ON `event_place`.`id` = `sport`.`place_id`
                 LEFT JOIN `event` ON `sport`.`id` = `event`.`sport_id`
-                WHERE `event_place`.`district` = :district
+                WHERE `event_place`.`district` = :district AND `event`.`id` IS NOT NULL 
                 GROUP BY `event`.`date_id`";
 
         $stmt = $conn->prepare($sql);
