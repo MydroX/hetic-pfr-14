@@ -94,7 +94,7 @@ class EventsController extends AbstractController
      * @Route(name="CountEventsByDistrict", path="api/events/count/district", methods={"GET"})
      * @SWG\Get(
      *     path="/api/events/count/district/",
-     *     summary="Get number of events for a district",
+     *     summary="Get number of events for all districts of Paris",
      *     operationId="getCountEventsByDistrict",
      *     produces={"application/json"},
      *     @SWG\Response(
@@ -111,14 +111,13 @@ class EventsController extends AbstractController
 
         $numberOfDistricts = 20;
         $data = array();
-
         $olympicsDuration = 16;
-        $day = 26;
+        $day = 1;
 
         $defaultEvent = array();
         for ($i=0 ; $i <= $olympicsDuration ; $i++) {
-            if ($day == 32) {
-                $day = 1;
+            if ($day == 12) {
+                $day = 26;
             }
             $defaultEvent[$i] = ["events" => "0", "date_id" => "".$day];
             $day++;
@@ -128,7 +127,25 @@ class EventsController extends AbstractController
             $events = $eventPlaceRepository->findCountForEveryDate($i);
             $districtFrontId = "d".$i;
 
-            $events = array_replace($defaultEvent, $events);
+            $olympicsDuration = 16;
+            $dayId = 1;
+
+            for ($j = 0; $j < $olympicsDuration; $j++) {
+                if ($dayId == 12) {
+                    $dayId = 26;
+                }
+                if (empty($events)) {
+                    $events = $defaultEvent;
+                    break;
+                }
+                if ($events[$j]['date_id'] != $dayId) {
+                    $temp = array_splice($events, $j);
+                    array_push($events, ["events" => "0", "date_id" => "" . $dayId]);
+                    $events = array_merge($events, $temp);
+                }
+                $dayId++;
+                $olympicsDuration = count($events);
+            }
 
             $districtData = ["district" => $districtFrontId, "days" => $events];
             array_push($data, $districtData);
