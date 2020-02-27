@@ -39,7 +39,9 @@ class EventRepository extends ServiceEntityRepository
                 LEFT JOIN `sport` ON `event_place`.`id` = `sport`.`place_id`
                 LEFT JOIN `event` ON `sport`.`id` = `event`.`sport_id`
                 WHERE `event_place`.`district` = :district AND `event`.`id` IS NOT NULL 
-                GROUP BY `event`.`date_id`";
+                GROUP BY `event`.`date_id`
+                ORDER BY `event`.`date_id` ASC"
+        ;
 
         $stmt = $conn->prepare($sql);
         $stmt->execute(['district' => $district]);
