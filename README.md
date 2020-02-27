@@ -1,4 +1,5 @@
-# Projet fil rouge groupe 14
+# Projet fil rouge groupe 14 - Efficient Back part
+ 
  
  ## **Installation du projet**
  
@@ -6,5 +7,6 @@
  
  * Exécuter `composer install` puis `yarn`.
  
- * Ensuite récuperer les csv et les mettre dans le dossier _/src/DataTable/csv_ et lancer la commande ``./import_data.sh``.
+ ## **Personne concerné**
+ * Maxime ZINUTTI
  
