@@ -25,7 +25,7 @@ class EventsController extends AbstractController
      *     summary="Get all events",
      *     operationId="getEvents",
      *     produces={"application/json"},
-     *     description="Returns all events",
+     *     description="Returns 50 first events by date",
      *     @SWG\Response(
      *          response="200",
      *          description="Success",
@@ -36,7 +36,7 @@ class EventsController extends AbstractController
     public function getEvents()
     {
         $eventRepository = $this->getDoctrine()->getRepository(Event::class);
-        $events = $eventRepository->findAll();
+        $events = $eventRepository->findEventsOrderByDate();
 
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new DateTimeNormalizer(), new ObjectNormalizer()];
