@@ -25,7 +25,7 @@ class EventsController extends AbstractController
      *     summary="Get all events",
      *     operationId="getEvents",
      *     produces={"application/json"},
-     *     description="Returns 50 first events by date",
+     *     description="Returns events by date",
      *     @SWG\Response(
      *          response="200",
      *          description="Success",
